@@ -109,9 +109,11 @@ class ComposeConfig:
 def compose(fst: VectorFst, other_fst: VectorFst) -> VectorFst:
     """
     Compute the composition of two FSTs.
+
     Args:
         fst: Left fst.
         other_fst: Right fst.
+
     Returns:
         Resulting fst.
     """
@@ -129,10 +131,12 @@ def compose_with_config(
 ) -> VectorFst:
     """
     Compute the composition of two FSTs parametrized with a config.
+
     Args:
         fst: Left fst.
         other_fst: Right fst.
         config: Config parameters of the composition.
+
     Returns:
         Resulting fst.
     """

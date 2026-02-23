@@ -16,6 +16,7 @@ from typing import Optional, Union, overload
 class Tr:
     """
     Structure representing a transition from a state to another state in a FST.
+
     Attributes:
         ilabel: The input label.
         olabel: The output label.

@@ -30,6 +30,7 @@ class SymbolTable(Iterable[Tuple[int, str]]):
 
         Args:
           symbol: A symbol unicode string.
+
         Returns:
           The integer key of the new symbol.
         """
@@ -46,6 +47,7 @@ class SymbolTable(Iterable[Tuple[int, str]]):
         """
         This method merges another symbol table into the current table. All key
         values will be offset by the current available key.
+
         Args:
           syms: A `SymbolTable` to be merged with the current table.
         """
@@ -75,21 +77,26 @@ class SymbolTable(Iterable[Tuple[int, str]]):
     def find(self, key: Union[int, str]) -> Union[int, str]:
         """
         Given a symbol or index, finds the other one.
+
         This method returns the index associated with a symbol key, or the symbol
         associated with a index key.
+
         Args:
           key: Either a string or an index.
+
         Returns:
           If key is a string, the associated index; if key is an integer, the
               associated symbol.
+
         Raises:
           KeyError: Key not found.
+          TypeError: Key is not a string or integer.
         """
         if isinstance(key, int):
             return self._find_index(key)
         if isinstance(key, str):
             return self._find_symbol(key)
-        raise f"key can only be a string or integer. Not {type(key)}"
+        raise TypeError(f"key can only be a string or integer. Not {type(key)}")
 
     def _find_index(self, key: int) -> str:
         symbol = ctypes.c_void_p()
@@ -117,10 +124,15 @@ class SymbolTable(Iterable[Tuple[int, str]]):
         This method returns a boolean indicating whether the given symbol or index
         is present in the table. If one intends to perform subsequent lookup, it is
         better to simply call the find method, catching the KeyError.
+
         Args:
           key: Either a string or an index.
+
         Returns:
           Whether or not the key is present (as a string or a index) in the table.
+
+        Raises:
+          TypeError: Key is not a string or integer.
         """
         is_present = ctypes.c_size_t()
 
@@ -135,7 +147,7 @@ class SymbolTable(Iterable[Tuple[int, str]]):
                 self.ptr, symbol, ctypes.byref(is_present)
             )
         else:
-            raise f"key can only be a string or integer. Not {type(key)}"
+            raise TypeError(f"key can only be a string or integer. Not {type(key)}")
 
         err_msg = "`member` failed"
         check_ffi_error(ret_code, err_msg)
@@ -159,10 +171,13 @@ class SymbolTable(Iterable[Tuple[int, str]]):
         """
         Reads symbol table from binary file.
         This class method creates a new SymbolTable from a symbol table binary file.
+
         Args:
           filename: The string location of the input binary file.
+
         Returns:
           A new SymbolTable instance.
+
         See also: `SymbolTable.read_fst`, `SymbolTable.read_text`.
         """
         symt = ctypes.c_void_p()
@@ -179,12 +194,15 @@ class SymbolTable(Iterable[Tuple[int, str]]):
     def read_text(cls, filename: Union[str, Path]) -> "SymbolTable":
         """
         Reads symbol table from text file.
+
         This class method creates a new SymbolTable from a symbol table text file.
+
         Args:
           filename: The string location of the input text file.
 
         Returns:
           A new SymbolTable instance.
+
         See also: `SymbolTable.read`, `SymbolTable.read_fst`.
         """
         symt = ctypes.c_void_p()
@@ -200,9 +218,12 @@ class SymbolTable(Iterable[Tuple[int, str]]):
     def write(self, filename: Union[str, Path]) -> None:
         """
         Serializes symbol table to a file.
+
         This methods writes the SymbolTable to a file in binary format.
+
         Args:
           filename: The string location of the output file.
+
         Raises:
           FstIOError: Write failed.
         """
@@ -216,9 +237,12 @@ class SymbolTable(Iterable[Tuple[int, str]]):
     def write_text(self, filename: Union[str, Path]) -> None:
         """
         Writes symbol table to text file.
+
         This method writes the SymbolTable to a file in human-readable format.
+
         Args:
           filename: The string location of the output file.
+
         Raises:
           FstIOError: Write failed.
         """
@@ -235,6 +259,7 @@ class SymbolTable(Iterable[Tuple[int, str]]):
 
         Params:
             other: SymbolTable instance
+
         Returns:
              bool
         """
@@ -252,6 +277,7 @@ class SymbolTable(Iterable[Tuple[int, str]]):
 
         Params:
             other: SymbolTable instance
+
         Returns:
              bool
         """
@@ -262,6 +288,7 @@ class SymbolTable(Iterable[Tuple[int, str]]):
     def __iter__(self) -> "SymbolTableIterator":
         """
         Returns an Iterator over the SymbolTable.
+
         Returns:
             An iterator over the SymbolTable.
         """
@@ -297,6 +324,7 @@ class SymbolTableIterator(Iterator[Tuple[int, str]]):
     def __init__(self, symbol_table: "SymbolTable"):
         """
         Constructs an iterator from the `Symboltable`.
+
         Args:
             symbol_table:
         """
@@ -310,6 +338,7 @@ class SymbolTableIterator(Iterator[Tuple[int, str]]):
     def __next__(self) -> Tuple[int, str]:
         """
         Iterator over the symbols in the `SymbolTable`.
+
         Returns:
             A pair label (int) and symbol (str).
         """

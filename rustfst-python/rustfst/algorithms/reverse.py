@@ -14,8 +14,10 @@ def reverse(fst: VectorFst) -> VectorFst:
 
     Not to be confused with `inverse`, which does something
     totally different!
+
     Args:
       fst: Fst to reverse
+
     Returns:
       Newly created, reversed Fst.
     """

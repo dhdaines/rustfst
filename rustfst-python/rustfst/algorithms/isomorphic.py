@@ -10,9 +10,11 @@ from rustfst.fst.vector_fst import VectorFst
 def isomorphic(fst: VectorFst, other_fst: VectorFst) -> bool:
     """
     Check if two Fsts are isomorphic.
+
     Args:
         fst: First Fst.
         other_fst: Second Fst.
+
     Returns:
         Whether both Fsts are equal.
     """

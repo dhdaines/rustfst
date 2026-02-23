@@ -66,13 +66,17 @@ class VectorFst(Fst):
         """
         Adds a new tr to the FST and return self. Note the tr should be considered
         consumed and is not safe to use it after.
+
         Args:
           state: The integer index of the source state.
           tr: The tr to add.
+
         Returns:
           self.
+
         Raises:
           SnipsFstException: If State index out of range.
+
         See also: `add_state`.
         """
         ret_code = lib.vec_fst_add_tr(self.ptr, ctypes.c_size_t(state), tr.ptr)
@@ -84,8 +88,10 @@ class VectorFst(Fst):
     def add_state(self) -> int:
         """
         Adds a new state to the FST and returns the state ID.
+
         Returns:
           The integer index of the new state.
+
         See also: `add_tr`, `set_start`, `set_final`.
         """
         state_id = ctypes.c_size_t()
@@ -99,12 +105,15 @@ class VectorFst(Fst):
     def set_final(self, state: int, weight: Union[float, None] = None) -> None:
         """
         Sets the final weight for a state.
+
         Args:
           state: The integer index of a state.
           weight: A float indicating the desired final weight; if
               omitted, it is set to semiring One.
+
         Raises:
           ValueError: State index out of range or Incompatible or invalid weight.
+
         See also: `set_start`.
         """
         if weight is None:
@@ -120,8 +129,10 @@ class VectorFst(Fst):
     def unset_final(self, state: int) -> None:
         """
         Unset the final weight of a state. As a result, the state is no longer final.
+
         Args:
             state: The integer index of a state
+
         Raises:
           ValueError: State index out of range.
         """
@@ -133,10 +144,13 @@ class VectorFst(Fst):
     def mutable_trs(self, state: int) -> MutableTrsIterator:
         """
         Returns a mutable iterator over trs leaving the specified state.
+
         Args:
           state: The source state ID.
+
         Returns:
           A MutableTrsIterator.
+
         See also: `trs`, `states`.
         """
         return MutableTrsIterator(self, state)
@@ -152,6 +166,7 @@ class VectorFst(Fst):
     def num_states(self) -> int:
         """
         Returns the number of states.
+
         Returns:
             Number of states present in the Fst.
         """
@@ -165,10 +180,13 @@ class VectorFst(Fst):
     def set_start(self, state: int) -> None:
         """
         Sets a state to be the initial state state.
+
         Args:
           state: The integer index of a state.
+
         Raises:
           ValueError: If State index out of range.
+
         See also: `set_final`.
         """
         state_id = ctypes.c_size_t(state)
@@ -179,8 +197,10 @@ class VectorFst(Fst):
     def states(self) -> StateIterator:
         """
         Returns an iterator over all states in the FST.
+
         Returns:
           A StateIterator object for the FST.
+
         See also: `trs`, `mutable_trs`.
         """
         return StateIterator(self)
@@ -252,13 +272,16 @@ class VectorFst(Fst):
     ) -> None:
         """
         Writes out the FST in Graphviz text format.
+
         This method writes out the FST in the dot graph description language. The
         graph can be rendered using the `dot` executable provided by Graphviz.
+
         Args:
           filename: The string location of the output dot/Graphviz file.
           isymbols: An optional symbol table used to label input symbols.
           osymbols: An optional symbol table used to label output symbols.
           drawing_config: Drawing configuration to use.
+
         See also: `text`.
         """
 
@@ -310,10 +333,13 @@ class VectorFst(Fst):
     def read(cls, filename: Union[str, Path]) -> "VectorFst":
         """
         Read a Fst at a given path.
+
         Args:
           filename: The string location of the input file.
+
         Returns:
           An Fst.
+
         Raises:
           ValueError: Read failed.
         """
@@ -329,9 +355,12 @@ class VectorFst(Fst):
     def write(self, filename: Union[str, Path]) -> None:
         """
         Serializes FST to a file.
+
         This method writes the FST to a file in vector binary format.
+
         Args:
           filename: The string location of the output file.
+
         Raises:
           ValueError: Write failed.
         """
@@ -343,6 +372,7 @@ class VectorFst(Fst):
     def from_bytes(cls, data: bytes) -> "VectorFst":
         """
         Load a `VectorFst` from a sequence of bytes.
+
         Args:
             data: Sequence of bytes.
 
@@ -366,6 +396,7 @@ class VectorFst(Fst):
     def to_bytes(self) -> bytes:
         """
         Turns the `VectorFst` into bytes.
+
         Returns:
             Sequence of bytes.
         """
@@ -392,8 +423,10 @@ class VectorFst(Fst):
     def equals(self, other: Fst) -> bool:
         """
         Check if this Fst is equal to the other.
+
         Args:
             other: Fst instance
+
         Returns:
              Whether both Fst are equals.
         """
@@ -423,9 +456,11 @@ class VectorFst(Fst):
         """
         Compute composition of this Fst with another Fst, returning
         the resulting Fst.
+
         Args:
             other: Fst to compose with.
             config: Config parameters of the composition.
+
         Returns:
             The composed Fst.
         """
@@ -440,6 +475,7 @@ class VectorFst(Fst):
         """
         Compute Fst Concatenation of this Fst with another Fst, returning the
         resulting Fst.
+
         Args:
             other: Fst to concatenate with.
 
@@ -500,8 +536,10 @@ class VectorFst(Fst):
     ) -> "VectorFst":
         """
         Make an Fst deterministic
+
         Args:
             config: Configuration for the determinization operation.
+
         Returns:
             The resulting Fst.
         """
@@ -514,8 +552,10 @@ class VectorFst(Fst):
     def minimize(self, config: Union["MinimizeConfig", None] = None) -> "VectorFst":
         """
         Minimize an FST in place
+
         Args:
           config: Configuration for the minimization operation.
+
         Returns:
           self
         """
@@ -528,8 +568,10 @@ class VectorFst(Fst):
     def project(self, proj_type: Union["ProjectType", None] = None) -> "VectorFst":
         """
         Convert a Fst to an acceptor using input or output labels.
+
         Args:
             proj_type: Whether to replace input labels or output labels.
+
         Returns:
             self
         """
@@ -626,8 +668,10 @@ class VectorFst(Fst):
     ) -> "VectorFst":
         """
         Construct a FST containing the shortest path of the input FST
+
         Args:
           config: Configuration for shortest-path operation.
+
         Returns:
           Newly-created FST containing only the shortest path of the input FST.
         """
@@ -661,6 +705,7 @@ class VectorFst(Fst):
 
         Args:
             other_fst: Fst to perform union with this one.
+
         Returns:
              The resulting newly-created Fst.
 
@@ -672,6 +717,7 @@ class VectorFst(Fst):
     def optimize(self) -> "VectorFst":
         """
         Optimize an FST in-place.
+
         Returns:
           self
         """
@@ -682,6 +728,7 @@ class VectorFst(Fst):
     def optimize_in_log(self) -> "VectorFst":
         """
         Optimize an fst in-place in the log semiring.
+
         Returns:
           self
         """
@@ -721,8 +768,10 @@ class VectorFst(Fst):
     def isomorphic(self, other: "VectorFst") -> bool:
         """
         Check if this Fst is isomorphic with another
+
         Args:
             other: Other Fst.
+
         Returns:
             Whether both Fsts are equal.
         """
@@ -745,6 +794,7 @@ class VectorFst(Fst):
     def __add__(self, other: "VectorFst") -> "VectorFst":
         """
         `fst_1 + fst_2` is a shortcut to perform the concatenation of `fst_1` and `fst_2`.
+
         Args:
             other: VectorFst to concatenate after the current Fst.
 
@@ -758,6 +808,7 @@ class VectorFst(Fst):
     def __mul__(self, other: "VectorFst") -> "VectorFst":
         """
         `fst_1 * fst_2` is a shortcut to perform the composition of `fst_1` and `fst_2`.
+
         Args:
             other: VectorFst to compose with.
 
@@ -770,6 +821,7 @@ class VectorFst(Fst):
     def __or__(self, other: "VectorFst") -> "VectorFst":
         """
         `fst_1 | fst_2` is a shortcut to perform the union of `fst_1` and `fst_2`.
+
         Args:
             other: VectorFst to perform the union with.
 

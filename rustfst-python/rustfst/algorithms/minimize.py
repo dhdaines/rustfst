@@ -34,8 +34,10 @@ class MinimizeConfig:
 def minimize(fst: VectorFst) -> VectorFst:
     """
     Minimize an FST in-place
+
     Params:
       fst: Fst
+
     Returns:
       fst
     """
@@ -49,9 +51,11 @@ def minimize(fst: VectorFst) -> VectorFst:
 def minimize_with_config(fst: VectorFst, config: MinimizeConfig) -> VectorFst:
     """
     Minimize an FST in-place
+
     Params:
       fst: Fst
       config: Configuration
+
     Returns:
       fst
     """

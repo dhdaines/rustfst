@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Changed
 - Correct implementation of `SymbolTableIterator` in Python
 - Correct type annotations for Python module
+- Update to pyproject.toml configuration for Python build
+- Use pyproject.toml to generate requirements files
+- Support Python 3.12 and 3.13
+- Correct documentation for various Python methods
 
 ## [0.8.0] - 2020-16-10
 

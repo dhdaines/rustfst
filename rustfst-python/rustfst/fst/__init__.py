@@ -28,6 +28,7 @@ class Fst:
     def start(self) -> Optional[int]:
         """
         Returns the start state.
+
         Returns :
             The start state or None.
         """
@@ -43,10 +44,13 @@ class Fst:
     def final(self, state: int) -> Optional[float]:
         """
         Returns the final weight of a state.
+
         Args:
           state: The integer index of a state.
+
         Returns:
           The final Weight of that state.
+
         Raises:
           Exception: If State index out of range.
         """
@@ -66,12 +70,16 @@ class Fst:
     def num_trs(self, state: int) -> int:
         """
         Returns the number of trs leaving a state.
+
         Args:
           state: The integer index of a state.
+
         Returns:
           The number of trs leaving that state.
+
         Raises:
           Exception: If State index out of range.
+
         See also: `num_states`.
         """
         num_trs = ctypes.c_size_t()
@@ -86,10 +94,13 @@ class Fst:
     def trs(self, state: int) -> TrsIterator:
         """
         Returns an iterator over trs leaving the specified state.
+
         Args:
           state: The source state ID.
+
         Returns:
           An TrsIterator.
+
         See also: `mutable_trs`, `states`.
         """
         return TrsIterator(self, state)
@@ -97,8 +108,10 @@ class Fst:
     def is_final(self, state_id: int) -> bool:
         """
         Check if a state is final
+
         Args :
             state_id:
+
         Returns :
             bool
         """
@@ -114,8 +127,10 @@ class Fst:
     def is_start(self, state_id: int) -> bool:
         """
         Check if a state is a start state.
+
         Args :
             state_id: Integer index of the state.
+
         Returns :
             bool
         """
@@ -131,8 +146,10 @@ class Fst:
     def input_symbols(self) -> Optional[SymbolTable]:
         """
         Returns the Fst's input symbol table, or None if none is present.
+
         Returns :
             The Fst's input symbol table, or None if none is present.
+
         See also: `output_symbols`.
         """
         if self._input_symbols:
@@ -150,8 +167,10 @@ class Fst:
     def output_symbols(self) -> Optional[SymbolTable]:
         """
         Returns the Fst's output symbol table, or None if none is present.
+
         Returns :
             The Fst's output symbol table, or None if none is present.
+
         See also: `input_symbols`.
         """
         if self._output_symbols:
@@ -171,10 +190,13 @@ class Fst:
         """
         Sets the input symbol table.
         Passing None as a value will delete the input symbol table.
+
         Args:
           syms: A SymbolTable.
+
         Returns:
           self.
+
         See also: `set_output_symbols`.
         """
         if syms is None:
@@ -199,10 +221,13 @@ class Fst:
         """
         Sets the output symbol table.
         Passing None as a value will delete the output symbol table.
+
         Args:
           syms: A SymbolTable.
+
         Returns:
           self.
+
         See also: `set_input_symbols`.
         """
         if syms is None:
@@ -228,6 +253,7 @@ class Fst:
         """
         Args:
           symbols: List[int]
+
         Returns:
           self.
         """
@@ -243,6 +269,7 @@ class Fst:
         """
         Args:
           symbols: List[int]
+
         Returns:
           self.
         """

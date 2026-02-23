@@ -31,13 +31,16 @@ class ConstFst(Fst):
     ) -> None:
         """
         Writes out the FST in Graphviz text format.
+
         This method writes out the FST in the dot graph description language. The
         graph can be rendered using the `dot` executable provided by Graphviz.
+
         Args:
           filename: The string location of the output dot/Graphviz file.
           isymbols: An optional symbol table used to label input symbols.
           osymbols: An optional symbol table used to label output symbols.
           drawing_config: Drawing configuration to use.
+
         See also: `text`.
         """
 
@@ -89,10 +92,13 @@ class ConstFst(Fst):
     def read(cls, filename: Union[str, Path]) -> "ConstFst":
         """
         Read a Fst at a given path.
+
         Args:
           filename: The string location of the input file.
+
         Returns:
           An FST.
+
         Raises:
           ValueError: Read failed.
         """
@@ -109,10 +115,13 @@ class ConstFst(Fst):
     def from_vector_fst(cls, fst: VectorFst) -> "ConstFst":
         """
         Converts a given `VectorFst` to `ConstFst`
+
         Args:
           fst: The `VectorFst` that should be converted
+
         Returns:
           A `ConstFst`
+
         Raises:
           ValueError: Conversion failed
         """
@@ -126,9 +135,12 @@ class ConstFst(Fst):
     def write(self, filename: Union[str, Path]) -> None:
         """
         Serializes FST to a file.
+
         This method writes the FST to a file in binary format.
+
         Args:
           filename: The string location of the output file.
+
         Raises:
           ValueError: Write failed.
         """
@@ -139,8 +151,10 @@ class ConstFst(Fst):
     def equals(self, other: Fst) -> bool:
         """
         Check if this Fst is equal to the other
+
         Args :
             other: Fst instance
+
         Returns:
              bool
         """

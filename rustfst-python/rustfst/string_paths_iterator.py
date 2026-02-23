@@ -50,6 +50,7 @@ class StringPathsIterator(Iterator[StringPath]):
     def done(self) -> bool:
         """
         Returns whether we're at the end of the Iterator.
+
         Returns:
             True or False
         """
