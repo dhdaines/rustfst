@@ -1,13 +1,7 @@
-[workspace]
-members = [
-    "rustfst",
-    "rustfst-cli",
-    "rustfst-ffi",
-]
+[package]
+name = "rustfst-python"
+version = "0.1.0"
+edition = "2024"
 
-[profile.release]
-lto = true
-panic = "abort"
-
-[patch.crates-io]
-ordered_iter = { git = "https://github.com/contain-rs/ordered_iter" }
+[dependencies]
+rustfst-ffi = "1.2.6"
